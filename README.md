@@ -1,27 +1,36 @@
-# Nombre del Proyecto
+# Yupi Entertainment
 
 ## Descripción
-Descripción del proyecto y su propósito.
+
+Una Single Page Application (SPA) de música. Nuestra plataforma está construida para ofrecer una experiencia de usuario sin recargas de página, combinando la reproducción de música con la exploración de información y la personalización de playlists. 
 
 ## Características
-- Lista de funcionalidades principales
-- Tecnologías utilizadas
+
+- Con nuestra aplicación web, no solo puedes escuchar tus canciones favoritas, sino también explorar nueva música, acceder a información detallada sobre tus artistas y álbumes, y personalizar tus listas de reproducción a tu gusto.
+
+## Herramientas utilizadas
+
+- Tailwind CSS
+- Supabase
+- Next.js
+- Clerk
 
 ## Registro de Avances por Clase
-**Nota**: Todos los avances documentados en esta sección deben coincidir con los commits realizados en el repositorio, incluyendo el autor correspondiente de cada commit. Cada tarea completada, en progreso o pendiente debe estar respaldada por un commit asociado en el repositorio, con mensajes descriptivos que reflejen la tarea realizada y el nombre del autor.
+**Nota**: 
 
 ### Clase 1
-- **Fecha**: [DD/MM/YYYY]
+- **Fecha**: [20/08/2025]
 - **Objetivos**:
-  - [Objetivo 1]
-  - [Objetivo 2]
+  - **Objetivos 1**:Cambiar nombre 
+  - **Objetivos 2**:Cambiar logo
+
 - **Avances**:
-  - ✅ [Tarea completada 1] - Responsable: [Nombre] - Commit: [Hash o descripción del commit]
-  - ✅ [Tarea completada 2] - Responsable: [Nombre] - Commit: [Hash o descripción del commit]
+  - ✅ Cambio de nombre de la aplicacion - Responsable: [todos] - Commit: [Cambio de nombre]
 - **En progreso**:
-  - 🔄 [Tarea en progreso] - Responsable: [Nombre] - Commit: [Hash o descripción del commit]
+  - 🔄 Generacion y cambio de nuevo logo - Responsable: [Felipe] - Commit: [cambio de logo]
 - **Pendiente**:
-  - ⏳ [Tarea pendiente] - Responsable: [Nombre]
+  - ⏳ Agregar y cambiar el Login de clerk por el de supabase  - Responsable: [Mateo]
+  - Cambio de color de fondo [Felipe]
 - **Notas**:
   - [Descripción de problemas, soluciones o decisiones tomadas]
 
