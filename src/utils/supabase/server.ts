@@ -15,16 +15,16 @@ export function createClient() {
           const cookieStore = await cookies();
           try {
             cookieStore.set({ name, value, ...options });
-          } catch { // Corrected: removed 'error'
-            // The `cookies().set()` method can only be called from a Server Component or Server Action.
+          } catch { 
+            
           }
         },
         async remove(name: string, options: CookieOptions) {
           const cookieStore = await cookies();
           try {
             cookieStore.set({ name, value: '', ...options });
-          } catch { // Corrected: removed 'error'
-            // The `cookies().set()` method can only be called from a Server Component or Server Action.
+          } catch { 
+            
           }
         },
       },
