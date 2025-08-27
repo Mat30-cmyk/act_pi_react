@@ -8,7 +8,7 @@ interface MusicPlayerContextType {
   setPlaylist: React.Dispatch<React.SetStateAction<Song[]>>;
   togglePlayPause: () => void;
   playSong: (song: Song, newPlaylist?: Song[]) => void;
-  playNextSong: () => void;
+  playNextSong: () => void  ;
   playPreviousSong: () => void;
   seek: (time: number) => void;
   volume: number;
@@ -17,6 +17,9 @@ interface MusicPlayerContextType {
   currentTime: number;
   setCurrentTime: (time: number) => void;
   clearCurrentSong: () => void;
+  isPlayerOpen: boolean;
+  setIsPlayerOpen: (open: boolean) => void;
+
 }
 
 const MusicPlayerContext = createContext<MusicPlayerContextType | undefined>(undefined);
@@ -28,10 +31,11 @@ export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({ c
   const [volume, setVolumeState] = useState<number>(1); 
   const [duration, setDuration] = useState<number>(0);
   const [currentTime, setCurrentTimeState] = useState<number>(0);
+  const [isPlayerOpen, setIsPlayerOpen] = useState(false);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  
+    
   useEffect(() => {
     audioRef.current = new Audio();
     
@@ -160,8 +164,7 @@ export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({ c
     setDuration(0);
     setCurrentTimeState(0);
   }, []);
-
-
+ 
   const value = React.useMemo(() => ({
     currentSong,
     isPlaying,
@@ -178,6 +181,9 @@ export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({ c
     currentTime,
     setCurrentTime: setCurrentTimeState, 
     clearCurrentSong,
+    isPlayerOpen, 
+    setIsPlayerOpen
+  
   }), [
     currentSong,
     isPlaying,
@@ -193,6 +199,9 @@ export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({ c
     duration,
     currentTime,
     clearCurrentSong,
+    isPlayerOpen,  
+    setIsPlayerOpen
+
   ]);
 
   return (
