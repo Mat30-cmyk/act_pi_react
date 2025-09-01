@@ -2,6 +2,8 @@ import React from 'react';
 import { Song } from '@/types';
 import { useMusicPlayer } from '@/src/context/MusicPlayerContext';
 import { MusicalNoteSolid } from '@heroicons/react/20/solid'; // Importa el icono
+import { Music2 } from "lucide-react";
+
 interface SongCardProps {
 song: Song;
 onSelectSong: (song: Song) => void;
@@ -49,20 +51,7 @@ const isCurrent = currentSong?.id === song.id;
 
       {isCurrent && (
         <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-lg">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-10 w-10 text-purple-400 animate-pulse"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M9 19V6l12-3v13M9 19c-1.105 0-2 .895-2 2s.895 2 2 2 2-.895 2-2-.895-2-2-2zm0 0H6a3 3 0 00-3 3v2a3 3 0 003 3h2M12 4v10m6-2V8m-6 4L9 19"
-            />
-          </svg>
+         <Music2 className="h-12 w-12 text-purple-400 animate-pulse" />
         </div>
       )}
     </div>
