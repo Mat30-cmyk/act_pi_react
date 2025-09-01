@@ -32,24 +32,25 @@ Una Single Page Application (SPA) de música. Nuestra plataforma está construid
   - ⏳ Agregar y cambiar el Login de clerk por el de supabase  - Responsable: [Mateo]
   - Cambio de color de fondo [Felipe]
 - **Notas**:
-  - [Descripción de problemas, soluciones o decisiones tomadas]
+  - Ninguna
 
 ### Clase 2
-- **Fecha**: [DD/MM/YYYY]
+- **Fecha**: [27/09/2025]
 - **Objetivos**:
-  - [Objetivo 1]
-  - [Objetivo 2]
+  - Agregar la función de cierre (boton de cierre)a la barra de reproducción de musica 
+  - Poblar la base de datos y hacer los cambios pertinentes 
 - **Avances**:
-  - ✅ [Tarea completada 1] - Responsable: [Nombre] - Commit: [Hash o descripción del commit]
-  - ✅ [Tarea completada 2] - Responsable: [Nombre] - Commit: [Hash o descripción del commit]
+  - ✅  Finalización del boton de cierre - Responsable: [Felipe] - Commit: "Boton cerrar"
 - **En progreso**:
-  - 🔄 [Tarea en progreso] - Responsable: [Nombre] - Commit: [Hash o descripción del commit]
+  - 🔄 Poblar la base de datos y modificaciones pertinentes - Responsable: [Joshua] - Commit: No aplica
+  - 🔄 Cambiar login del tecero (Clerk) por la de supabase - Responsable: [Mateo] - Commit: ""
+
 - **Pendiente**:
   - ⏳ [Tarea pendiente] - Responsable: [Nombre]
 - **Notas**:
-  - [Descripción de problemas, soluciones o decisiones tomadas]
+  - Ninguna
 
-### Clase [N]
+### Clase [3]
 - **Fecha**: [DD/MM/YYYY]
 - [Repetir estructura anterior]
 
