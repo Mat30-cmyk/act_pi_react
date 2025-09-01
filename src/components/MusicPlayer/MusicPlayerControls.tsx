@@ -4,6 +4,7 @@ import React, { useRef, useEffect, useCallback } from 'react';
 import { useMusicPlayer } from '@/src/context/MusicPlayerContext';
 import Image from 'next/image';
 
+
 export default function MusicPlayerControls() {
   const {
     currentSong,
@@ -18,6 +19,11 @@ export default function MusicPlayerControls() {
     currentTime,
     setCurrentTime,
     seek,
+    setIsPlayerOpen,
+    isPlayerOpen
+    
+
+
   } = useMusicPlayer();
 
   const progressBarRef = useRef<HTMLInputElement | null>(null);
@@ -65,12 +71,12 @@ export default function MusicPlayerControls() {
     setVolume(newVolume);
   };
 
-  if (!currentSong) {
-        return null;
+  if (!currentSong || !isPlayerOpen) {
+    return null;
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-gray-900 text-white p-4 flex items-center justify-between z-50 shadow-lg">
+    <div className={`fixed bottom-0 left-0 right-0 bg-gray-900 text-white p-4 flex items-center justify-between z-50 shadow-lg  transition-transform duration-300 ${closed ? "translate-y-full" : "translate-y-0"}`}>
       <div className="flex items-center space-x-4">
         {currentSong.cover_image_url ? (
           <Image
@@ -114,7 +120,13 @@ export default function MusicPlayerControls() {
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 5l7 7-7 7M6 5l7 7-7 7" />
             </svg>
-          </button>
+          </button >
+          <button onClick={() =>  {setIsPlayerOpen(false); togglePlayPause()}} className="text-gray-400 hover:text-white">
+            
+          <svg xmlns="http://www.w3.org/2000/svg"className="h-6 w-6"fill="none"viewBox="0 0 24 24"stroke="currentColor">
+            <path strokeLinecap="round"strokeLinejoin="round"strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+          </button> 
         </div>
         <div className="flex items-center w-full max-w-lg">
           <span className="text-xs text-gray-400 mr-2">{formatTime(currentTime)}</span>
@@ -127,9 +139,8 @@ export default function MusicPlayerControls() {
             ref={progressBarRef}
             onChange={handleProgressBarChange}
             style={{
-              background: `linear-gradient(to right, #8B5CF6 0%, #8B5CF6 ${
-                (currentTime / duration) * 100
-              }%, #4B5563 ${(currentTime / duration) * 100}%, #4B5563 100%)`,
+              background: `linear-gradient(to right, #8B5CF6 0%, #8B5CF6 ${(currentTime / duration) * 100
+                }%, #4B5563 ${(currentTime / duration) * 100}%, #4B5563 100%)`,
             }}
           />
           <span className="text-xs text-gray-400 ml-2">{formatTime(duration)}</span>

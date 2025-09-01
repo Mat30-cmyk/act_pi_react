@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Artist, Song } from '@/types';
 import Image from 'next/image';
 import PlaylistItem from '@/src/components/Musica/PlaylistItem';
@@ -19,7 +19,7 @@ export default function ArtistModal({ artist, onClose, searchQuery, onSelectSong
     song.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const { setPlaylist, playSong, playlist: globalPlaylist } = useMusicPlayer();
+  const { setPlaylist, playSong, playlist: globalPlaylist, setIsPlayerOpen } = useMusicPlayer();
 
   React.useEffect(() => {
     if (artist.songs && artist.songs.length > 0) {
@@ -32,8 +32,10 @@ export default function ArtistModal({ artist, onClose, searchQuery, onSelectSong
     }
   }, [artist.songs, setPlaylist, globalPlaylist]);
 
+
   const handleSongPlay = (songToPlay: Song) => {
-    playSong(songToPlay, artist.songs.length > 0 ? artist.songs : [songToPlay]);
+    playSong(songToPlay, artist.songs.length > 0 ? artist.songs : [songToPlay] );
+    setIsPlayerOpen(true);
   };
 
   return (
