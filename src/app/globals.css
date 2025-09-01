@@ -12,10 +12,14 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@media (max-width: 600px) {
+  .carousel-button {
+    left: 5px !important;
+    right: 5px !important;
+    width: 36px;
+    height: 36px;
+    font-size: 1.3rem;
+    padding: 0;
   }
 }
 
@@ -23,4 +27,14 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.custom-scrollbar-hide::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+.custom-scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
