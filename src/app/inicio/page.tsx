@@ -21,6 +21,7 @@ export default function HomePage() {
   const [mixes, setMixes] = useState<mixes[]>([]);
   const [songs, setSongs] = useState<Song[]>([]);
   const [filteredSongs, setFilteredSongs] = useState<Song[]>([]);
+  const [filteredArtists, setFilteredArtists] = useState<Artist[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -88,26 +89,35 @@ export default function HomePage() {
     fetchAllData();
   }, []);
 
-  useEffect(() => {
-    if (searchQuery) {
-      const lowerCaseQuery = searchQuery.toLowerCase();
-      const newFilteredSongs = songs.filter(song =>
-        song.title.toLowerCase().includes(lowerCaseQuery) ||
-        song.name.toLowerCase().includes(lowerCaseQuery)
-      );
-      setFilteredSongs(newFilteredSongs);
-    } else {
-      setFilteredSongs([]);
-    }
-  }, [searchQuery, songs]);
+    useEffect(() => {
+      if (searchQuery) {
+        const lowerCaseQuery = searchQuery.toLowerCase();
+        const newFilteredSongs = songs.filter(song =>
+          song.title.toLowerCase().includes(lowerCaseQuery) ||
+          song.name.toLowerCase().includes(lowerCaseQuery)
+        );
+        setFilteredSongs(newFilteredSongs);
+      
+        const newFilteredArtists = artists.filter(
+          (artist) =>
+            artist.name.toLowerCase().includes(lowerCaseQuery) ||
+            artist.songs.some((songs) =>
+              songs.title.toLowerCase().includes(lowerCaseQuery))
+        );
+        setFilteredArtists(newFilteredArtists); 
+      } else {
+        setFilteredSongs([]);
+        setFilteredArtists([]);
+      }
+    }, [searchQuery, songs, artists]);
 
-  useEffect(() => {
-    if (filteredSongs.length > 0 && searchQuery) {
-      setPlaylist(filteredSongs);
-    } else if (songs.length > 0 && !searchQuery) {
-      setPlaylist(songs);
-    }
-  }, [filteredSongs, songs, searchQuery, setPlaylist]);
+    useEffect(() => {
+      if (filteredSongs.length > 0 && searchQuery) {
+        setPlaylist(filteredSongs);
+      } else if (songs.length > 0 && !searchQuery) {
+        setPlaylist(songs);
+      }
+    }, [filteredSongs, songs, searchQuery, setPlaylist]);
 
 
   return (
@@ -144,7 +154,23 @@ export default function HomePage() {
             />
           </div>
 
-          {searchQuery && filteredSongs.length > 0 && (
+                    {filteredArtists.length > 0 && (
+            <div>
+              <h3 className="text-2xl font-semibold mb-4 text-white">Artistas</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                {filteredArtists.map((artist) =>(
+                  <ArtistIcon
+                  key={artist.id}
+                  artist={artist}
+                  isSelected={selectedArtist?.id === artist.id}
+                  onSelectArtist={setSelectedArtist}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {searchQuery && (filteredSongs.length > 0 || filteredArtists.length > 0) && (
             <div className="mb-12">
               <h2 className="text-4xl font-bold mb-8 mt-8 text-white">Resultados de búsqueda</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -160,7 +186,7 @@ export default function HomePage() {
             </div>
           )}
 
-          {(!searchQuery || filteredSongs.length === 0) && (
+          {(!searchQuery || (filteredSongs.length === 0 && filteredArtists.length === 0)) && (
             <div>
               <center><h2 className="text-4xl font-bold mb-8 mt-16 text-white">Artistas</h2></center>
               <Carousel<Artist>
