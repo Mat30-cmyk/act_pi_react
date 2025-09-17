@@ -7,7 +7,7 @@ import Image from 'next/image';
 
 interface PlaylistItemProps {
   song: Song;
-  onSelectSong: (song: Song) => void; 
+  onSelectSong: (song: Song) => void;
 }
 
 export default function PlaylistItem({ song, onSelectSong }: PlaylistItemProps) {
@@ -82,10 +82,10 @@ export default function PlaylistItem({ song, onSelectSong }: PlaylistItemProps) 
             >
               <path
                 fillRule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.025A1 1 0 0111 8v4a1 1 0 01-1.445.975l-3.268-2a1 1 0 010-1.95l3.268-2z"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zM10.445 7.025A1 1 0 009 8v4a1 1 0 001.445.975l3.268-2a1 1 0 000-1.95l-3.268-2z"
                 clipRule="evenodd"
               />
-            </svg>
+            </svg> 
           )
         ) : (
           <svg
@@ -96,10 +96,11 @@ export default function PlaylistItem({ song, onSelectSong }: PlaylistItemProps) 
           >
             <path
               fillRule="evenodd"
-              d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.025A1 1 0 0111 8v4a1 1 0 01-1.445.975l-3.268-2a1 1 0 010-1.95l3.268-2z"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zM10.445 7.025A1 1 0 009 8v4a1 1 0 001.445.975l3.268-2a1 1 0 000-1.95l-3.268-2z"
               clipRule="evenodd"
             />
           </svg>
+
         )}
       </div>
     </div>

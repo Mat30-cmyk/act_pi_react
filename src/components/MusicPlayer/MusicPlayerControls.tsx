@@ -14,6 +14,7 @@ export default function MusicPlayerControls() {
     playPreviousSong,
     clearCurrentSong,
     volume,
+    pauseSong,
     setVolume,
     duration,
     currentTime,
@@ -21,7 +22,7 @@ export default function MusicPlayerControls() {
     seek,
     setIsPlayerOpen,
     isPlayerOpen
-    
+
 
 
   } = useMusicPlayer();
@@ -121,12 +122,29 @@ export default function MusicPlayerControls() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 5l7 7-7 7M6 5l7 7-7 7" />
             </svg>
           </button >
-          <button onClick={() =>  {setIsPlayerOpen(false); togglePlayPause()}} className="text-gray-400 hover:text-white">
-            
-          <svg xmlns="http://www.w3.org/2000/svg"className="h-6 w-6"fill="none"viewBox="0 0 24 24"stroke="currentColor">
-            <path strokeLinecap="round"strokeLinejoin="round"strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-          </button> 
+          <button
+            onClick={() => {
+              pauseSong();
+              setIsPlayerOpen(false);
+            }}
+            className="text-gray-400 hover:text-white"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+
         </div>
         <div className="flex items-center w-full max-w-lg">
           <span className="text-xs text-gray-400 mr-2">{formatTime(currentTime)}</span>

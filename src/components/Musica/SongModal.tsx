@@ -57,8 +57,12 @@ export default function SongModal({ song, onClose }: SongModalProps) {
             ) : (
               <>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.025A1 1 0 0111 8v4a1 1 0 01-1.445.975l-3.268-2a1 1 0 010-1.95l3.268-2z" clipRule="evenodd" />
-                </svg>
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.445 7.025A1 1 0 009 8v4a1 1 0 001.445.975l3.268-2a1 1 0 000-1.95l-3.268-2A1 1 0 009 7v.025z"
+                    clipRule="evenodd"
+                  />
+                </svg>    
                 <span>Reproducir</span>
               </>
             )}
