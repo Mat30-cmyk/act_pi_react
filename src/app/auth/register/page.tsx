@@ -34,7 +34,7 @@ export default function RegisterForm() {
     }
 
     if (user) {
-      router.push('/inicio');
+      router.push('/auth/login');
     }
 
     setLoading(false);
