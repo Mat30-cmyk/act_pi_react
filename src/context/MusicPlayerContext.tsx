@@ -1,3 +1,5 @@
+'use client';
+
 import React, { createContext, useContext, useState, useRef, useEffect, useCallback } from 'react';
 import { Song } from '@/types';
 

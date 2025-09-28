@@ -31,6 +31,7 @@ export default function LoginForm() {
 
         setLoading(false);
         router.push('/inicio');
+        router.refresh();
     };
 
     return (
