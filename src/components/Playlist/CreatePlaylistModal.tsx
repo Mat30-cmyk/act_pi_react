@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { supabase } from '@/src/utils/supabaseClient';
-import { useUser } from '@clerk/nextjs';
+import { createClient } from "@/src/utils/supabase/client";
 import { Playlist } from '@/types';
 import ReactDOM from 'react-dom';
 
@@ -12,7 +11,8 @@ interface CreatePlaylistModalProps {
 }
 
 export default function CreatePlaylistModal({ onClose, onPlaylistCreated }: CreatePlaylistModalProps) {
-    const { user, isLoaded, isSignedIn } = useUser();
+    const supabase = createClient();
+
     const [name, setName] = useState<string>('');
     const [description, setDescription] = useState<string>('');
     const [isPublic, setIsPublic] = useState<boolean>(false);
@@ -28,29 +28,35 @@ export default function CreatePlaylistModal({ onClose, onPlaylistCreated }: Crea
             return;
         }
 
-        if (!isLoaded || !isSignedIn || !user) {
-            setError('Debes iniciar sesión para crear una playlist.');
-            return;
-        }
-
         setLoading(true);
         try {
+            // 1️⃣ Obtén el usuario desde Supabase
+            const { data: { user }, error: userError } = await supabase.auth.getUser();
+
+            if (userError) throw userError;
+            if (!user) {
+                setError('Debes iniciar sesión para crear una playlist.');
+                return;
+            }
+
+            console.log("🎯 Creando playlist para user_id:", user.id);
+
+            // 2️⃣ Inserta en la tabla playlists
             const { data, error: supabaseError } = await supabase
                 .from('playlists')
                 .insert({
                     name,
                     description,
                     is_public: isPublic,
-                    user_id: user.id,
+                    user_id: user.id, // 👈 importante para RLS
                 })
                 .select()
                 .single();
 
-            if (supabaseError) {
-                throw supabaseError;
-            }
+            if (supabaseError) throw supabaseError;
 
             if (data) {
+                console.log("✅ Playlist creada:", data);
                 onPlaylistCreated(data as Playlist);
                 onClose();
             } else {
@@ -59,25 +65,18 @@ export default function CreatePlaylistModal({ onClose, onPlaylistCreated }: Crea
 
         } catch (err: unknown) {
             let errorMessage = 'Error desconocido al crear la playlist.';
-            if (err instanceof Error) {
-                errorMessage = err.message;
-            } else if (typeof err === 'object' && err !== null && 'message' in err) {
-                errorMessage = (err as { message: string }).message;
-            } else if (typeof err === 'string') {
-                errorMessage = err;
-            }
-            console.error('Error creating playlist:', errorMessage);
+            if (err instanceof Error) errorMessage = err.message;
+            console.error('❌ Error creating playlist:', errorMessage);
             setError(errorMessage);
         } finally {
             setLoading(false);
         }
     };
 
+    // Asegúrate de que exista un div#modal-root en tu _app.tsx o layout.tsx
     const modalRoot = typeof document !== 'undefined' ? document.getElementById('modal-root') : null;
 
-    if (!modalRoot) {
-        return null;
-    }
+    if (!modalRoot) return null;
 
     return ReactDOM.createPortal(
         <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
@@ -104,6 +103,8 @@ export default function CreatePlaylistModal({ onClose, onPlaylistCreated }: Crea
                         </svg>
                     </button>
                 </div>
+
+                {/* Formulario */}
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
                         <label htmlFor="name" className="block text-white text-sm font-bold mb-2">
@@ -119,6 +120,7 @@ export default function CreatePlaylistModal({ onClose, onPlaylistCreated }: Crea
                             required
                         />
                     </div>
+
                     <div>
                         <label htmlFor="description" className="block text-white text-sm font-bold mb-2">
                             Descripción:
@@ -132,6 +134,7 @@ export default function CreatePlaylistModal({ onClose, onPlaylistCreated }: Crea
                             disabled={loading}
                         ></textarea>
                     </div>
+
                     <div className="flex items-center">
                         <input
                             type="checkbox"
@@ -150,7 +153,7 @@ export default function CreatePlaylistModal({ onClose, onPlaylistCreated }: Crea
 
                     <button
                         type="submit"
-                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-colors duration-200"
+                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-colors duration-200 w-full"
                         disabled={loading}
                     >
                         {loading ? 'Creando...' : 'Crear Playlist'}
